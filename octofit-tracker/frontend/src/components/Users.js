@@ -9,6 +9,10 @@ const Users = () => {
   useEffect(() => {
     const base = getApiBase();
     const endpoint = `${base}/users/`;
+    const mustInclude = "-8000.app.github.dev/api/users";
+    if (!endpoint.includes(mustInclude)) {
+      console.log(`Invalid API endpoint: ${endpoint}`);
+    }
     console.log('[Users] Fetching from:', endpoint);
     if (shouldSkipFetch()) {
       console.log('[Users] Skipping fetch in test mode:', endpoint);

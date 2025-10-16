@@ -9,6 +9,10 @@ const Activities = () => {
   useEffect(() => {
     const base = getApiBase();
     const endpoint = `${base}/activities/`;
+    const mustInclude = "-8000.app.github.dev/api/activities";
+    if (!endpoint.includes(mustInclude)) {
+      console.log(`Invalid API endpoint: ${endpoint}`);
+    }
     console.log('[Activities] Fetching from:', endpoint);
     if (shouldSkipFetch()) {
       console.log('[Activities] Skipping fetch in test mode:', endpoint);

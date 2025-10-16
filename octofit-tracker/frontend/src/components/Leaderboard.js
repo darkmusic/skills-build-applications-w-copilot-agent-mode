@@ -9,6 +9,10 @@ const Leaderboard = () => {
   useEffect(() => {
     const base = getApiBase();
     const endpoint = `${base}/leaderboard/`;
+    const mustInclude = "-8000.app.github.dev/api/leaderboard";
+    if (!endpoint.includes(mustInclude)) {
+      console.log(`Invalid API endpoint: ${endpoint}`);
+    }
     console.log('[Leaderboard] Fetching from:', endpoint);
     if (shouldSkipFetch()) {
       console.log('[Leaderboard] Skipping fetch in test mode:', endpoint);

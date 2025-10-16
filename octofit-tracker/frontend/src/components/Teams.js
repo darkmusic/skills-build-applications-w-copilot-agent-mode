@@ -9,6 +9,10 @@ const Teams = () => {
   useEffect(() => {
     const base = getApiBase();
     const endpoint = `${base}/teams/`;
+    const mustInclude = "-8000.app.github.dev/api/teams";
+    if (!endpoint.includes(mustInclude)) {
+      console.log(`Invalid API endpoint: ${endpoint}`);
+    }
     console.log('[Teams] Fetching from:', endpoint);
     if (shouldSkipFetch()) {
       console.log('[Teams] Skipping fetch in test mode:', endpoint);
