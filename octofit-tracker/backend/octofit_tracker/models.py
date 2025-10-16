@@ -3,7 +3,7 @@ from djongo.models import ObjectIdField
 
 
 class Team(models.Model):
-    id = ObjectIdField()
+    id = ObjectIdField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -11,7 +11,7 @@ class Team(models.Model):
 
 
 class User(models.Model):
-    id = ObjectIdField()
+    id = ObjectIdField(primary_key=True)
     name = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
     team = models.ForeignKey(Team, related_name='members', on_delete=models.SET_NULL, null=True, blank=True)
@@ -21,7 +21,7 @@ class User(models.Model):
 
 
 class Activity(models.Model):
-    id = ObjectIdField()
+    id = ObjectIdField(primary_key=True)
     user = models.ForeignKey(User, related_name='activities', on_delete=models.CASCADE)
     activity_type = models.CharField(max_length=100)
     duration_minutes = models.PositiveIntegerField()
@@ -33,7 +33,7 @@ class Activity(models.Model):
 
 
 class Workout(models.Model):
-    id = ObjectIdField()
+    id = ObjectIdField(primary_key=True)
     user = models.ForeignKey(User, related_name='workouts', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     notes = models.TextField(blank=True)
@@ -44,7 +44,7 @@ class Workout(models.Model):
 
 
 class LeaderboardEntry(models.Model):
-    id = ObjectIdField()
+    id = ObjectIdField(primary_key=True)
     user = models.ForeignKey(User, related_name='leaderboard_entries', on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
     rank = models.PositiveIntegerField(null=True, blank=True)

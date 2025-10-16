@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-zn*i64b3338h05b=9(@9m72765#8j-)!)=$_itbl1(ev##_#9#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+import os
+
+# Allow local development plus Codespaces host if provided via environment
+# Format used by Codespaces: "$CODESPACE_NAME-8000.app.github.dev"
+codespace_name = os.environ.get('CODESPACE_NAME')
+allowed = ['127.0.0.1', 'localhost']
+if codespace_name:
+    allowed.append(f"{codespace_name}-8000.app.github.dev")
+ALLOWED_HOSTS = allowed
 
 
 # Application definition
