@@ -37,7 +37,7 @@ const Activities = () => {
   return (
     <div className="card shadow-sm">
       <div className="card-header d-flex justify-content-between align-items-center">
-  <h2 className="h5 mb-0">Activities</h2>
+        <h2 className="h5 mb-0">Activities</h2>
         <div className="d-flex gap-2">
           <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#activityModal">Add Activity</button>
           <a className="btn btn-outline-secondary btn-sm" href="#top">Back to top</a>
