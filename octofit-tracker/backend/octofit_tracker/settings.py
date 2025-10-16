@@ -124,9 +124,10 @@ CORS_ALLOW_METHODS = ['*']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://orange-fiesta-pg67jxqx4qhj69-8000.app.github.dev',
-    'http://orange-fiesta-pg67jxqx4qhj69-3000.app.github.dev',
 ]
+if codespace_name:
+    CORS_ALLOWED_ORIGINS.append(f"http://{codespace_name}-8000.app.github.dev")
+    CORS_ALLOWED_ORIGINS.append(f"http://{codespace_name}-3000.app.github.dev")
 
 
 # Password validation
