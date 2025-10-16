@@ -33,7 +33,24 @@ codespace_name = os.environ.get('CODESPACE_NAME')
 allowed = ['127.0.0.1', 'localhost']
 if codespace_name:
     allowed.append(f"{codespace_name}-8000.app.github.dev")
+    allowed.append(f"{codespace_name}-3000.app.github.dev")  # If frontend served separately
 ALLOWED_HOSTS = allowed
+
+# Ensure Django recognizes the original HTTPS protocol when behind Codespaces proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Trust Codespaces origins for CSRF (mostly impacts unsafe methods; GET is unaffected)
+if codespace_name:
+    print(f"Configuring CSRF trusted origins for Codespace: {codespace_name}")
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{codespace_name}-3000.app.github.dev",
+        f"https://{codespace_name}-8000.app.github.dev",
+        "https://*.app.github.dev",
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:3000",
+    ]
 
 
 # Application definition
@@ -60,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'octofit_tracker.middleware.open_access_middleware',
 ]
 
 ROOT_URLCONF = 'octofit_tracker.urls'
@@ -99,9 +117,16 @@ DATABASES = {
 }
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['*']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://orange-fiesta-pg67jxqx4qhj69-8000.app.github.dev',
+    'http://orange-fiesta-pg67jxqx4qhj69-3000.app.github.dev',
+]
 
 
 # Password validation
